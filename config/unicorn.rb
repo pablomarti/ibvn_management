@@ -14,7 +14,7 @@ stdout_path "/var/www/ibvn_management/log/unicorn.log"
 
 # Unicorn socket
 listen "/tmp/unicorn.[ibvn_management].sock"
-listen "/tmp/unicorn.myapp.sock"
+listen "/tmp/unicorn.ibvn_management.sock"
 
 # Number of processes
 # worker_processes 4

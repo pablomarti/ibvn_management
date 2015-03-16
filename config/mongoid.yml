@@ -1,0 +1,32 @@
+development:
+  sessions:
+    default:
+      database: church_db_development
+      hosts:
+        - localhost:27017
+      options:
+        max_retries: 20
+        retry_interval: 0
+  options:
+production:
+  sessions:
+    default:
+      database: church_db_production
+      hosts:
+        - localhost:27017
+      options:
+        max_retries: 20
+        retry_interval: 0
+  options:
+    # include_root_in_json: false
+    # include_type_for_serialization: false
+    # preload_models: false
+test:
+  sessions:
+    default:
+      database: church_db_test
+      hosts:
+        - localhost:27017
+      options:
+        read: primary
+        max_retries: 20

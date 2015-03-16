@@ -1,0 +1,116 @@
+<%= form_for(@member) do |f| %>
+  <% if @member.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@member.errors.count, "error") %> prohibited this member from being saved:</h2>
+
+      <ul>
+      <% @member.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :firstname, "Nombre" %><br>
+    <%= f.text_field :firstname, :class => 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :lastname, "Apellido" %><br>
+    <%= f.text_field :lastname, :class => 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :homestreet, "Direccion" %><br>
+    <%= f.text_field :homestreet, :class => 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :homecity, "Colonia" %><br>
+    <%= f.text_field :homecity, :class => 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :businessphone, "Telefono" %><br>
+    <%= f.text_field :businessphone, :class => 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :workemailaddress, "Email" %><br>
+    <%= f.text_field :workemailaddress, :class => 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :fecha_de_nacimiento %><br>
+    <%= f.text_field :fecha_de_nacimiento, :class => 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :estado_civil %><br>
+    <%= f.text_field :estado_civil, :class => 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :campus_al_que_asiste, "Campus" %><br>
+    <%= f.text_field :campus_al_que_asiste, :class => 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :es, "Estado" %><br>
+    <%= f.text_field :es, :class => 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :nivel_de_discipulado %><br>
+    <%= f.text_field :nivel_de_discipulado, :class => 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :nombre_de_discipulador %><br>
+    <%= f.text_field :nombre_de_discipulador, :class => 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :grupo_pequeo_al_que_asiste, "Grupo pequeño al que asiste" %><br>
+    <%= f.text_field :grupo_pequeo_al_que_asiste, :class => 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :ler_de_grupo_pequeo, "Lider de grupo pequeño" %><br>
+    <%= f.text_field :ler_de_grupo_pequeo, :class => 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :ministerios_en_los_que_sirve %><br>
+    <%= f.text_field :ministerios_en_los_que_sirve, :class => 'form-control' %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :talentos %><br>
+    <%= f.text_area :talentos, :class => 'form-control' %>
+  </div>
+  <div class="actions">
+    <%= link_to 'Regresar', members_path, :class => "btn btn-default" %>
+    <%= f.submit "Guardar", :class => "btn btn-default" %>
+  </div>
+<% end %>
+
+<% if !@creating_member %>
+  <hr />
+
+  <div>
+    <h3>Grupos</h3>
+
+    <%= form_for :data, :url => member_add_group_path(@member), :remote => true do |f| %>
+      <div class="field form-group">
+        <%= f.select :group_id, @groups.collect{ |c| [c.name, c.id] }, {}, :class => 'form-control' %>
+      </div>
+
+      <div class="actions right">
+        <%= f.submit 'Agregar', :class => "btn btn-default" %>
+      </div>
+    <% end %>
+  </div>
+
+  <hr />
+
+  <div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Grupo</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="group_members">
+        <%= render :partial => 'group_member', :collection => @group_members %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

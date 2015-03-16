@@ -1,0 +1,45 @@
+<h1>Miembros</h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Telefono</th>
+      <th>Email</th>
+      <th>Fecha de nacimiento</th>
+      <th>Estado civil</th>
+      <th>Campus</th>
+      <th>Nivel de discipulado</th>
+      <th>Nombre de discipulador</th>
+      <th>Grupo pequeño al que asiste</th>
+      <th>Lider de grupo pequeño</th>
+      <th>Ministerios</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @members.each do |member| %>
+      <tr>
+        <td><%= link_to member.firstname, edit_member_path(member) %></td>
+        <td><%= link_to member.lastname, edit_member_path(member) %></td>
+        <td><%= member.businessphone %></td>
+        <td><%= member.workemailaddress %></td>
+        <td><%= member.fecha_de_nacimiento %></td>
+        <td><%= member.estado_civil %></td>
+        <td><%= member.campus_al_que_asiste %></td>
+        <td><%= member.nivel_de_discipulado %></td>
+        <td><%= member.nombre_de_discipulador %></td>
+        <td><%= member.grupo_pequeo_al_que_asiste %></td>
+        <td><%= member.ler_de_grupo_pequeo %></td>
+        <td><%= member.ministerios_en_los_que_sirve %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @members %>
+
+<br>
+
+<%= link_to 'Nuevo miembro', new_member_path, :class => "btn btn-default" %>

@@ -1,0 +1,4 @@
+<tr id="group_member_<%= group_member.id %>">
+	<td><%= group_member.group.name %></td>
+	<td><%= link_to 'Eliminar', member_remove_from_group_path(group_member.member, group_member.group), method: :delete, remote: true, data: { confirm: '¿Esta seguro de querer eliminar este grupo?' } %></td>
+</tr>

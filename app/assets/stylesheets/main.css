@@ -1,0 +1,27 @@
+body {
+  padding-top: 50px;
+}
+
+.padding_row{
+	padding-top: 20px;
+}
+
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.center{
+	text-align: center;
+}
+
+.right{
+	text-align: right;
+}
+
+.footer {
+  margin: 20px auto 0px;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+}

@@ -1,0 +1,3 @@
+<% if !@group_member.nil? %>
+	$('#group_members').append("<%=j render :partial => 'group_member', :object => @group_member %>");
+<% end %>

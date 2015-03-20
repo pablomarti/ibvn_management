@@ -4,6 +4,6 @@ class Group
   field :name, type: String
   field :description, type: String
 
-  embeds_many :group_members
+  has_many :group_members
 
 end

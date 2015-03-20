@@ -1,7 +1,7 @@
 class GroupMember
   include Mongoid::Document
   
-  embedded_in :group
-  embedded_in :member
+  belongs_to :group
+  belongs_to :member
 
 end

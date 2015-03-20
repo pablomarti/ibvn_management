@@ -81,15 +81,55 @@ class Member
   field :ministerios_en_los_que_sirve, type: String
   field :talentos, type: String
 
-  embeds_many :group_members
+  has_many :group_members
+
+  def fullname
+    self.firstname + " " + self.lastname
+  end
 
   def add_group(group_id)
-    self.group_members << GroupMember.new(group_id: group_id)
+    gm = self.group_members.where(group_id: group_id)
+
+    if gm.empty?
+      gm = GroupMember.create(group_id: group_id, member_id: self.id)
+      gm.save
+
+      return gm
+    else
+      return nil
+    end
   end
 
   def remove_group(group_id)
-    old_group_members = self.group_members.where(group_id: group_id)
-    old_group_members.destroy_all
+    gm = self.group_members.where(group_id: group_id)
+    gm_id = gm.first.id
+    gm.destroy_all
+
+    return gm_id
+  end
+
+  def self.get_members(kind, search)
+    search_items = search.split.collect{ |i| Regexp.new (".*" + i + ".*") }
+
+    case kind 
+      when 1
+        results = Member.or(:firstname.in => search_items).or(:lastname.in => search_items)
+      when 2
+        results = Member.where(workemailaddress: search)
+      when 3
+        results = Member.or(:campus_al_que_asiste.in => search_items)
+      when 4
+        results = Member.or(:nombre_de_discipulador.in => search_items)
+      when 5
+        results = Member.or(:grupo_pequeo_al_que_asiste.in => search_items)
+      when 6
+        results = Member.or(:ministerios_en_los_que_sirve.in => search_items)
+      when 0
+        results = Member.or(:firstname.in => search_items).or(:lastname.in => search_items).or(:workemailaddress.in => search_items).or(:campus_al_que_asiste.in => search_items).or(:nombre_de_discipulador.in => search_items).or(:grupo_pequeo_al_que_asiste.in => search_items).or(:ministerios_en_los_que_sirve.in => search_items)
+      else
+    end
+
+    return results
   end
 
 end

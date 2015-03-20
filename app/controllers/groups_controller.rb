@@ -10,6 +10,7 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    @group_members = @group.group_members
   end
 
   # GET /groups/new
@@ -28,7 +29,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: 'Group was successfully created.' }
+        format.html { redirect_to @group, notice: 'El grupo ha sido creado' }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to @group, notice: 'Group was successfully updated.' }
+        format.html { redirect_to @group, notice: 'El grupo ha sido actualizado' }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }
@@ -56,9 +57,14 @@ class GroupsController < ApplicationController
   def destroy
     @group.destroy
     respond_to do |format|
-      format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }
+      format.html { redirect_to groups_url, notice: 'El grupo ha sido eliminado' }
       format.json { head :no_content }
     end
+  end
+
+  def remove_member
+    @member = Member.find(params[:member_id])
+    @group_member_id = @member.remove_group(params[:group_id])
   end
 
   private

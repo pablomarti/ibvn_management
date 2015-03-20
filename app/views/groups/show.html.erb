@@ -1,14 +1,26 @@
-<p id="notice"><%= notice %></p>
+<h1><%= @group.name %></h1>
 
 <p>
-  <strong>Name:</strong>
-  <%= @group.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
   <%= @group.description %>
 </p>
 
-<%= link_to 'Edit', edit_group_path(@group) %> |
-<%= link_to 'Back', groups_path %>
+<hr />
+
+<h3>Miembros</h3>
+
+<div>
+	<table class="table table-bordered">
+	  <thead>
+	    <tr>
+	      <th>Miembro</th>
+	      <th></th>
+	    </tr>
+	  </thead>
+	  <tbody id="group_members">
+	    <%= render :partial => 'group_member', :collection => @group_members %>
+	  </tbody>
+	</table>
+</div>
+
+<%= link_to 'Editar', edit_group_path(@group), :class => "btn btn-default" %>
+<%= link_to 'Volver', groups_path, :class => "btn btn-default" %>

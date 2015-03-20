@@ -1,10 +1,28 @@
 <h1>Miembros</h1>
 
+<hr />
+
+<div>
+  <%= form_for :data, :class => "form-inline", :method => "GET" do |f| %>
+    <div class="field form-group">
+      <% search_value = params[:data][:search] rescue "" %>
+      <%= f.text_field :search, :value => search_value, :class => 'form-control', :placeholder => 'Buscar' %>
+      <% selected_option = params[:data][:kind].to_i rescue 0 %>
+      <%= f.select :kind,  [["Todo", 0], ["Nombre", 1], ["Email", 2], ["Campus", 3], ["Discipulador", 4], ["Grupo pequeño", 5], ["Ministerios", 6]], {:selected => selected_option}, :class => 'form-control'  %>
+    </div>
+    
+    <div class="actions right">
+      <%= f.submit "Buscar", :class => "btn btn-default" %>
+    </div>
+  <% end %>
+</div>
+
+<hr />
+
 <table class="table table-bordered">
   <thead>
     <tr>
       <th>Nombre</th>
-      <th>Apellido</th>
       <th>Telefono</th>
       <th>Email</th>
       <th>Fecha de nacimiento</th>
@@ -12,7 +30,7 @@
       <th>Campus</th>
       <th>Nivel de discipulado</th>
       <th>Nombre de discipulador</th>
-      <th>Grupo pequeño al que asiste</th>
+      <th>Grupo pequeño</th>
       <th>Lider de grupo pequeño</th>
       <th>Ministerios</th>
     </tr>
@@ -21,8 +39,7 @@
   <tbody>
     <% @members.each do |member| %>
       <tr>
-        <td><%= link_to member.firstname, edit_member_path(member) %></td>
-        <td><%= link_to member.lastname, edit_member_path(member) %></td>
+        <td><%= link_to member.fullname, edit_member_path(member) %></td>
         <td><%= member.businessphone %></td>
         <td><%= member.workemailaddress %></td>
         <td><%= member.fecha_de_nacimiento %></td>

@@ -11,15 +11,16 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="field form-group">
+    <%= f.label :name, "Nombre" %><br>
+    <%= f.text_field :name, :class => 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
+  <div class="field form-group">
+    <%= f.label :description, "Descripción" %><br>
+    <%= f.text_field :description, :class => 'form-control' %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= link_to 'Regresar', groups_path, :class => "btn btn-default" %>
+    <%= f.submit "Guardar", :class => "btn btn-default" %>
   </div>
 <% end %>

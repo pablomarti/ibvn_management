@@ -4,7 +4,13 @@ class MembersController < ApplicationController
   # GET /members
   # GET /members.json
   def index
-    @members = Member.all.paginate(page: params[:page], per_page: 20)
+    if params[:data]
+      @members = Member.get_members(params[:data][:kind].to_i, params[:data][:search])
+    else
+      @members = Member.all
+    end
+
+    @members = @members.paginate(:page => params[:page], :per_page => 25)
   end
 
   # GET /members/1
@@ -33,7 +39,7 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.save
-        format.html { redirect_to @member, notice: 'Member was successfully created.' }
+        format.html { redirect_to @member, notice: 'El miembro ha sido creado' }
         format.json { render :show, status: :created, location: @member }
       else
         format.html { render :new }
@@ -49,7 +55,7 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.update(member_params)
-        format.html { redirect_to @member, notice: 'Member was successfully updated.' }
+        format.html { redirect_to @member, notice: 'El miembro ha sido actualizado' }
         format.json { render :show, status: :ok, location: @member }
       else
         format.html { render :edit }
@@ -63,7 +69,7 @@ class MembersController < ApplicationController
   def destroy
     @member.destroy
     respond_to do |format|
-      format.html { redirect_to members_url, notice: 'Member was successfully destroyed.' }
+      format.html { redirect_to members_url, notice: 'El miembro ha sido eliminado' }
       format.json { head :no_content }
     end
   end

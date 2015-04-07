@@ -1,0 +1,29 @@
+<h1>Mensaje</h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= @message.title %></strong>
+</p>
+
+<p>
+  <%= @message.description %>
+</p>
+
+<div>
+	<strong>Grupos</strong>
+
+	<table>
+		<% @message.groups.each do |group| %>
+			<tr>
+				<td>
+					<%= link_to group.name, group %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+</div>
+
+<hr />
+
+<%= link_to 'Regresar', messages_path, :class => "btn btn-default" %>

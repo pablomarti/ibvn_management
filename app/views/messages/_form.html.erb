@@ -1,0 +1,83 @@
+<%= form_for(@message) do |f| %>
+  <% if @message.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@message.errors.count, "error") %> prohibited this message from being saved:</h2>
+
+      <ul>
+      <% @message.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :title, "Titulo" %><br>
+    <%= f.text_field :title, :class => 'form-control', :required => true %>
+  </div>
+  <div class="field form-group">
+    <%= f.label :description, "Mensaje" %><br>
+    <%= f.text_area :description, :class => 'form-control', :required => true %>
+  </div>
+
+  <div>
+    <strong>Grupos</strong>
+
+    <%= select_tag :groups_items, options_from_collection_for_select(@groups, "id", "name"), {:class => 'form-control'} %>
+    <br />
+    <%= link_to "Agregar", 'javascript:void(0)', :class => "btn btn-default", :id => 'add_group' %>
+    <br /><br />
+
+    <div id="groups_data">
+    </div>
+  </div>
+
+  <br />
+
+  <hr />
+
+  <div class="actions">
+    <%= f.hidden_field :groups %>
+    <%= link_to 'Regresar', messages_path, :class => "btn btn-default" %>
+    <%= f.submit "Enviar", :class => "btn btn-default" %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+var groups = [];
+
+$(document).ready(function(){
+  $('#add_group').click(function(){
+      var value = $("#groups_items").val();
+        
+      var found = false;
+      for(i=0; i<groups.length; i++){
+        if(groups[i] == value){
+          found = true;
+          break;
+        }
+      }
+
+      if(!found){
+        groups.push(value);
+        $('#groups_data').append('<div id="group_' + value + '">' + $('#groups_items option:selected').text() + ' <a href="javascript:removeGroup(\'' + value + '\')">Eliminar</a></div>');
+      }
+
+      $('#message_groups').val(groups);
+  });  
+});
+
+function removeGroup(value){
+  $('#group_' + value).remove();
+
+  var new_groups = [];
+  for(i=0; i<groups.length; i++){
+    if(groups[i] != value){
+      new_groups.push(groups[i]);
+    }
+  }
+
+  groups = new_groups;
+  $('#message_groups').val(groups);
+}
+</script>

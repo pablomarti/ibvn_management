@@ -54,3 +54,5 @@ gem 'jquery-turbolinks'
 gem 'will_paginate_mongoid'
 
 gem 'smarter_csv'
+
+gem 'delayed_job_mongoid'
